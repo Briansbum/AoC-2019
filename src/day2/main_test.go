@@ -32,6 +32,6 @@ func TestPerformOperation(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Equal(&test.expectedOutput, performOperation(&test.in, 0))
+		assert.Equal(test.expectedOutput, performOperation(test.in))
 	}
 }
