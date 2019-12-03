@@ -35,3 +35,26 @@ func TestPerformOperation(t *testing.T) {
 		assert.Equal(test.expectedOutput, performOperation(test.in))
 	}
 }
+
+func TestFindParams(t *testing.T) {
+	assert := assert.New(t)
+
+	tests := []struct {
+		in 						 []int
+		expectedOutput int
+	}{
+		{
+			[]int{1,0,0,0,99},
+			6,
+		},
+		{
+			[]int{2,0,0,5,99,0},
+			238,
+		},
+	}
+
+	for _, test := range tests {
+		p1, p2 := findParams(test.in)
+		
+	}
+}
