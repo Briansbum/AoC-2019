@@ -17,19 +17,19 @@ func performOperation(program *[]int, offset int) *[]int {
 	loc1 := (*program)[offset+1]
 	loc2 := (*program)[offset+2]
 	resTarget := (*program)[offset+3]
-	log.Printf("started with resTarget == %v", (*program)[resTarget])
+	// log.Printf("started with resTarget == %v", (*program)[resTarget])
 	if (*program)[offset] == 1 {
-		log.Println("add")
+		// log.Println("add")
 		(*program)[resTarget] = (*program)[loc1] + (*program)[loc2]
-		log.Printf("result of %v when adding %v by %v", (*program)[resTarget], (*program)[loc1], (*program)[loc2])
+		// log.Printf("result of %v when adding %v by %v", (*program)[resTarget], (*program)[loc1], (*program)[loc2])
 	} else if (*program)[offset] == 2 {
-		log.Println("multiply")
+		// log.Println("multiply")
 		(*program)[resTarget] = (*program)[loc1] * (*program)[loc2]
-		log.Printf("result of %v when multiplying %v by %v", (*program)[resTarget], (*program)[loc1], (*program)[loc2])
+		// log.Printf("result of %v when multiplying %v by %v", (*program)[resTarget], (*program)[loc1], (*program)[loc2])
 	}
-	log.Printf("ended with resTarget == %v", (*program)[resTarget])
+	// log.Printf("ended with resTarget == %v", (*program)[resTarget])
 	// this is the last thing this function does, always
-	nextOffset := searchForOpcode(input, offset)
+	nextOffset := searchForOpcode(program, offset)
 	if nextOffset == -1 {
 		log.Println("HALT")
 		return program
@@ -37,9 +37,9 @@ func performOperation(program *[]int, offset int) *[]int {
 	return performOperation(program, nextOffset)
 }
 
-func searchForOpcode(program []int, currOpcodeOffset int) int {
+func searchForOpcode(program *[]int, currOpcodeOffset int) int {
 	for i := currOpcodeOffset; i <= currOpcodeOffset+4; i++ {
-		if program[i] == 99 {
+		if (*program)[i] == 99 {
 			return -1
 		}
 	}
