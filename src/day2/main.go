@@ -1,6 +1,8 @@
 package main
 
-import "log"
+import (
+	"log"
+)
 
 var iterations int
 
@@ -20,15 +22,18 @@ func main() {
 
 func performOperation(program []int) []int {
 	for cur := 0; cur <= len(program); cur++ {
-		if program[program[cur + 1]] > len(program) {
+		log.Println(cur)
+		log.Println(cur + 4)
+		log.Println(len(program))
+		if cur+4 > len(program) {
 			break
 		}
 		switch program[cur] {
 		case 1:
-			program[program[cur + 3]] = program[program[cur + 1]] + program[program[cur + 2]]
+			program[program[cur+3]] = program[program[cur+1]] + program[program[cur+2]]
 			cur = cur + 3
 		case 2:
-			program[program[cur + 3]] = program[program[cur + 1]] * program[program[cur + 2]]
+			program[program[cur+3]] = program[program[cur+1]] * program[program[cur+2]]
 			cur = cur + 3
 		case 99:
 			return program
@@ -39,17 +44,21 @@ func performOperation(program []int) []int {
 
 func findParams(program []int, desiredResult int) (int, int) {
 	p1, p2 := 0, 0
-	for {
-		programCopy := program
+	for p1 < 100 {
+		for p2 < 100 {
+			programCopy := make([]int, len(program))
+			copy(programCopy, program)
 
-		programCopy[1] = p1
-		programCopy[2] = p2
+			programCopy[1] = p1
+			programCopy[2] = p2
 
-		if performOperation(programCopy)[0] == desiredResult {
-			return p1, p2
+			if performOperation(programCopy)[0] == desiredResult {
+				return p1, p2
+			}
+
+			p2++
 		}
-
 		p1++
-		p2++
 	}
+	return 0, 0
 }
